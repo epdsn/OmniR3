@@ -23,7 +23,7 @@ export default function Footer() {
                   href="/about"
                   className="text-gray-600 hover:text-gray-900 text-sm"
                 >
-                  About
+                  About Us
                 </Link>
               </li>
               <li>

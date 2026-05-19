@@ -1,100 +1,68 @@
-# OmniR3 Marketing Website
+# OmniR3 Website (Astro)
 
-A production-ready Next.js marketing website for OmniR3 - a software agency focused on building reliable, responsible, and repeatable software systems.
+A static Astro marketing website for OmniR3, redesigned with an editorial, premium aesthetic inspired by entityo.com.
 
-## Features
+## Stack
 
-- **Next.js 15** with App Router
-- **TypeScript** for type safety
-- **Tailwind CSS** for styling
-- **SEO-friendly** with metadata optimization
-- **Responsive design** for all devices
-- **Static export** ready for Azure Static Web Apps
+- Astro 5
+- TypeScript
+- Custom CSS (no Tailwind dependency)
 
-## Pages
+## Routes
 
-- **Home** - Hero section with R3 principles explanation
-- **Capabilities** - Comprehensive overview of services
-- **How We Work** - Development methodology and process
-- **About** - Mission, values, and what makes us different
-- **Contact** - Contact form and information
+- /
+- /capabilities
+- /how-we-work
+- /about
+- /contact
 
-## Getting Started
+## Local Development
 
-### Prerequisites
-
-- Node.js 18 or higher
-- npm
-
-### Installation
+1. Install dependencies:
 
 ```bash
 npm install
 ```
 
-### Development
+2. Start dev server:
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the website.
-
-### Build
+3. Build production output:
 
 ```bash
 npm run build
 ```
 
-This creates an optimized production build in the `out` directory, ready for deployment.
+4. Preview production output:
 
-### Deployment
-
-The website is configured for static export and can be deployed to Azure Static Web Apps or any static hosting service.
-
-For Azure Static Web Apps:
-1. Build configuration is already set in `next.config.ts`
-2. The `staticwebapp.config.json` provides Azure-specific configuration
-3. Deploy the `out` folder to Azure Static Web Apps
+```bash
+npm run preview
+```
 
 ## Project Structure
 
 ```
-OmniR3/
-├── app/
-│   ├── about/
-│   ├── capabilities/
-│   ├── contact/
-│   ├── how-we-work/
-│   ├── globals.css
-│   ├── layout.tsx
-│   └── page.tsx
-├── components/
-│   ├── Footer.tsx
-│   └── Header.tsx
-├── public/
-├── next.config.ts
-├── tailwind.config.ts
-├── tsconfig.json
-└── package.json
+src/
+	components/
+	layouts/
+	pages/
+	styles/
+astro.config.mjs
 ```
 
-## Design Principles
+## Notes
 
-- **No UI libraries** - Pure Tailwind CSS for full control
-- **No animations** - Professional, enterprise-safe design
-- **No backend** - Static site with client-side only functionality
-- **Accessible** - Semantic HTML and ARIA where needed
-- **Performance** - Optimized builds and minimal dependencies
+- The contact form is static HTML and can be wired to your preferred backend or form endpoint.
+- The site is configured for static output and works with static hosting targets.
 
-## R3 Principles
+## Production Checklist
 
-The website embodies the three core principles of OmniR3:
-
-1. **Reliable** - Built with modern, stable technologies
-2. **Responsible** - Clean code, best practices, accessibility
-3. **Repeatable** - Consistent patterns and reusable components
-
-## License
-
-Copyright © 2026 OmniR3. All rights reserved.
+- Confirm final production domain in astro.config.mjs site value.
+- Review page titles and descriptions for final marketing copy.
+- Replace placeholder contact details with real company values.
+- Validate robots.txt and sitemap.xml use the live domain.
+- Run npm run build and verify output in dist.
+- Smoke test all routes and links in a deployed preview.

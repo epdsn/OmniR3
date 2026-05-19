@@ -1,0 +1,60 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+
+const process = [
+  {
+    step: "01",
+    title: "Discovery and Planning",
+    text: "We align business goals, technical constraints, and delivery outcomes before implementation starts.",
+  },
+  {
+    step: "02",
+    title: "Iterative Build Cycles",
+    text: "Short feedback loops, visible progress, and frequent working increments minimize delivery risk.",
+  },
+  {
+    step: "03",
+    title: "Quality and Assurance",
+    text: "Automated tests, code review standards, and performance checks are embedded in every cycle.",
+  },
+  {
+    step: "04",
+    title: "Launch and Evolution",
+    text: "We handle deployment readiness and ongoing support to keep systems dependable as requirements change.",
+  },
+];
+---
+
+<MainLayout
+  title="How We Work - OmniR3"
+  description="Our transparent and proven software delivery approach."
+  currentPath="/how-we-work"
+>
+  <section class="section page-head">
+    <div class="container">
+      <p class="eyebrow">How We Work</p>
+      <h1>A delivery process built for reliability, clarity, and momentum.</h1>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container process-grid">
+      {
+        process.map((item) => (
+          <article class="card process-card">
+            <p class="step">Step {item.step}</p>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container">
+      <h2>Want this delivery model on your next initiative?</h2>
+      <a class="btn btn-primary" href="/contact">Start a Conversation</a>
+    </div>
+  </section>
+</MainLayout>

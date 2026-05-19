@@ -1,0 +1,32 @@
+---
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/capabilities", label: "Capabilities" },
+  { href: "/how-we-work", label: "How We Work" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+];
+---
+
+<header class="site-header">
+  <nav class="container nav-shell">
+    <a class="brand" href="/">OmniR3</a>
+    <ul class="nav-links">
+      {
+        links.map((item) => (
+          <li>
+            <a class={currentPath === item.href ? "active" : ""} href={item.href}>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>

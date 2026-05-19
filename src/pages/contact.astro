@@ -1,0 +1,60 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout
+  title="Contact - OmniR3"
+  description="Contact OmniR3 to discuss your software initiative."
+  currentPath="/contact"
+>
+  <section class="section page-head">
+    <div class="container">
+      <p class="eyebrow">Contact</p>
+      <h1>Let us talk about your next software initiative.</h1>
+      <p class="lead">Share your goals, context, and timeline. We respond to all inquiries within one business day.</p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container split">
+      <form class="card form-card" name="contact" method="post" data-netlify="true">
+        <input type="hidden" name="form-name" value="contact" />
+        <label>
+          Name
+          <input type="text" name="name" required />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" required />
+        </label>
+        <label>
+          Company
+          <input type="text" name="company" />
+        </label>
+        <label>
+          Project focus
+          <select name="projectType">
+            <option value="">Select</option>
+            <option value="custom-development">Custom Software Development</option>
+            <option value="cloud-infrastructure">Cloud Infrastructure</option>
+            <option value="system-integration">System Integration</option>
+            <option value="modernization">Legacy Modernization</option>
+            <option value="consulting">Technical Consulting</option>
+          </select>
+        </label>
+        <label>
+          Message
+          <textarea name="message" rows="6" required></textarea>
+        </label>
+        <button class="btn btn-primary" type="submit">Send Message</button>
+      </form>
+
+      <aside class="card stack">
+        <h3>Other ways to reach us</h3>
+        <p><strong>Email:</strong> contact@omnir3.com</p>
+        <p><strong>Phone:</strong> +1 (555) 123-4567</p>
+        <p><strong>Office:</strong> 123 Software Lane, Tech City, TC 12345</p>
+      </aside>
+    </div>
+  </section>
+</MainLayout>

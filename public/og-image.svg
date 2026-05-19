@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8f4ec"/>
+      <stop offset="100%" stop-color="#ece4d7"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <rect x="66" y="66" width="1068" height="498" rx="22" fill="#ffffff" stroke="#d7cec0"/>
+  <text x="120" y="260" fill="#161411" font-size="88" font-family="Georgia, serif" font-weight="700">OmniR3</text>
+  <text x="120" y="334" fill="#625b52" font-size="42" font-family="Arial, sans-serif">Reliable software systems built to scale.</text>
+</svg>

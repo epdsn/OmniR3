@@ -168,24 +168,24 @@ jobs:
 
 ## Step 3: Create Deployment Workflow
 
-### Option A: Azure Static Web Apps
+### Option A: AWS S3 + CloudFront (Recommended)
 
-Create `.github/workflows/deploy-azure.yml`:
+Create `.github/workflows/deploy-aws.yml`:
 
 ```yaml
-name: Deploy to Azure Static Web Apps
+name: Deploy to AWS S3 + CloudFront
 
 on:
   push:
     branches: [main]
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
-    branches: [main]
+  workflow_dispatch:
+
+env:
+  AWS_REGION: us-east-1
 
 jobs:
-  build_and_deploy:
+  deploy:
     name: Build and Deploy
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
 
     steps:
@@ -204,28 +204,47 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Deploy to Azure Static Web Apps
-        uses: Azure/static-web-apps-deploy@v1
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          action: 'upload'
-          app_location: '/'
-          output_location: 'dist'
-          skip_app_build: true
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
 
-  close_pull_request:
-    name: Close PR Preview
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    runs-on: ubuntu-latest
+      - name: Deploy to S3
+        run: |
+          aws s3 sync dist/ s3://${{ secrets.S3_BUCKET_NAME }} \
+            --delete \
+            --cache-control "public, max-age=31536000, immutable" \
+            --exclude "*.html" \
+            --exclude "sitemap.xml" \
+            --exclude "robots.txt"
 
-    steps:
-      - name: Close preview environment
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-          action: 'close'
+          # HTML and dynamic files with shorter cache
+          aws s3 sync dist/ s3://${{ secrets.S3_BUCKET_NAME }} \
+            --delete \
+            --cache-control "public, max-age=0, must-revalidate" \
+            --exclude "*" \
+            --include "*.html" \
+            --include "sitemap.xml" \
+            --include "robots.txt"
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*"
 ```
+
+#### AWS Infrastructure Setup
+
+Before the workflow can run, you need to set up:
+
+1. **S3 Bucket** for hosting static files
+2. **CloudFront Distribution** for CDN and HTTPS
+3. **IAM User** with deployment permissions
+
+See the AWS setup guide below for detailed instructions.
 
 ### Option B: Netlify
 
@@ -367,11 +386,14 @@ jobs:
 
 Navigate to: Repository → Settings → Secrets and variables → Actions
 
-#### For Azure Static Web Apps
+#### For AWS S3 + CloudFront
 
-| Secret                            | How to obtain                                           |
-| --------------------------------- | ------------------------------------------------------- |
-| `AZURE_STATIC_WEB_APPS_API_TOKEN` | Azure Portal → Static Web App → Manage deployment token |
+| Secret                       | How to obtain                                            |
+| ---------------------------- | -------------------------------------------------------- |
+| `AWS_ACCESS_KEY_ID`          | IAM → Users → Security credentials → Create access key   |
+| `AWS_SECRET_ACCESS_KEY`      | Generated with access key (save immediately, shown once) |
+| `S3_BUCKET_NAME`             | Your S3 bucket name (e.g., `omnir3-website`)             |
+| `CLOUDFRONT_DISTRIBUTION_ID` | CloudFront → Distribution → ID column                    |
 
 #### For Netlify
 

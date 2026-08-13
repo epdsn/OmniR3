@@ -7,7 +7,7 @@ This document outlines the planned iterations for the OmniR3 marketing website, 
 - **Framework:** Astro 5 (static output)
 - **Pages:** Home, Capabilities, How We Work, About, Contact
 - **Styling:** Custom CSS (editorial/premium aesthetic)
-- **Hosting config:** Azure Static Web Apps config present, but no deployment pipeline
+- **Hosting target:** AWS S3 + CloudFront
 - **CI/CD:** None configured
 - **Testing:** None configured
 - **Linting:** None configured
@@ -18,23 +18,24 @@ This document outlines the planned iterations for the OmniR3 marketing website, 
 
 **Goal:** Prepare the site for production deployment with proper CI/CD, testing, and deployment automation.
 
-### 1.1 Resolve Deployment Target
+### 1.1 Deployment Target: AWS
 
-The codebase has mixed signals:
+**Chosen platform:** AWS S3 + CloudFront
 
-- `staticwebapp.config.json` suggests **Azure Static Web Apps**
-- Contact form uses `data-netlify="true"` suggesting **Netlify Forms**
+| Component      | Purpose             |
+| -------------- | ------------------- |
+| **S3**         | Static file hosting |
+| **CloudFront** | CDN, HTTPS, caching |
+| **Route 53**   | DNS (optional)      |
+| **ACM**        | SSL certificate     |
 
-**Decision needed:** Choose primary hosting platform:
+**Contact form:** The form currently has `data-netlify="true"` which won't work on AWS. Options:
 
-| Option                    | Pros                                                        | Cons                                                         |
-| ------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------ |
-| **Azure Static Web Apps** | Enterprise-grade, existing config, good for B2B credibility | Contact form needs alternative (e.g., Formspree, custom API) |
-| **Netlify**               | Built-in form handling, simple setup, generous free tier    | Need to add `netlify.toml`                                   |
-| **Vercel**                | Excellent Astro support, preview deployments                | Contact form needs alternative                               |
-| **Cloudflare Pages**      | Fast edge network, free tier                                | Contact form needs alternative                               |
+- **Formspree** - Simple, free tier available
+- **AWS SES + Lambda** - More complex but fully AWS
+- **Basin** - Another form service alternative
 
-**Recommendation:** Azure Static Web Apps (aligns with existing config) + Formspree for contact form handling.
+See `docs/AWS-SETUP.md` for detailed infrastructure setup guide.
 
 ### 1.2 Add Missing 404 Page
 

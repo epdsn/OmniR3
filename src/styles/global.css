@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap');
 
 :root {
   --bg: #f4f1ea;
@@ -25,7 +25,7 @@ body {
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
   line-height: 1.5;
 }
 
@@ -34,8 +34,16 @@ body {
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(900px 500px at 95% -15%, rgba(154, 128, 93, 0.14), transparent 60%),
-    radial-gradient(800px 400px at -10% 30%, rgba(90, 83, 74, 0.12), transparent 60%),
+    radial-gradient(
+      900px 500px at 95% -15%,
+      rgba(154, 128, 93, 0.14),
+      transparent 60%
+    ),
+    radial-gradient(
+      800px 400px at -10% 30%,
+      rgba(90, 83, 74, 0.12),
+      transparent 60%
+    ),
     linear-gradient(180deg, #f8f4ec 0%, #f1ece2 100%);
 }
 
@@ -54,7 +62,7 @@ h4 {
 
 h1,
 h2 {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: 'Fraunces', Georgia, serif;
   letter-spacing: -0.02em;
 }
 
@@ -164,7 +172,10 @@ a {
   padding: 0.8rem 1.25rem;
   font-weight: 700;
   border: 1px solid transparent;
-  transition: transform 0.18s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .btn:hover {

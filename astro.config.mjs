@@ -1,6 +1,6 @@
-import { defineConfig } from "astro/config";
+import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: "https://omnir3.com",
-  output: "static",
+  site: 'https://omnir3.com',
+  output: 'static',
 });

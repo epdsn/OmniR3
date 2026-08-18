@@ -13,6 +13,7 @@ A static Astro marketing website for OmniR3, redesigned with an editorial, premi
 - /
 - /capabilities
 - /how-we-work
+- /insights
 - /about
 - /contact
 

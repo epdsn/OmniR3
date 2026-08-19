@@ -18,32 +18,25 @@ This document outlines the planned iterations for the OmniR3 marketing website, 
 
 **Goal:** Prepare the site for production deployment with proper CI/CD, testing, and deployment automation.
 
-### 1.1 Deployment Target: AWS
+### 1.1 Deployment Target: AWS Amplify
 
-**Chosen platform:** AWS S3 + CloudFront
+**Chosen platform:** AWS Amplify
 
-| Component      | Purpose             |
-| -------------- | ------------------- |
-| **S3**         | Static file hosting |
-| **CloudFront** | CDN, HTTPS, caching |
-| **Route 53**   | DNS (optional)      |
-| **ACM**        | SSL certificate     |
+- Automatic builds on push to `main`
+- Built-in CDN and HTTPS
+- No infrastructure to manage
+- Free tier covers most marketing sites
 
 **Contact form:** The form currently has `data-netlify="true"` which won't work on AWS. Options:
 
 - **Formspree** - Simple, free tier available
-- **AWS SES + Lambda** - More complex but fully AWS
 - **Basin** - Another form service alternative
 
-See `docs/AWS-SETUP.md` for detailed infrastructure setup guide.
+See `docs/AMPLIFY-SETUP.md` for setup guide.
 
-### 1.2 Add Missing 404 Page
+### 1.2 404 Page
 
-The `staticwebapp.config.json` references `/404.html` but no 404 page exists.
-
-```
-src/pages/404.astro  # Create custom 404 page
-```
+✅ Already added: `src/pages/404.astro`
 
 ### 1.3 Replace Placeholder Content
 

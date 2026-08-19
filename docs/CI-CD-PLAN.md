@@ -166,85 +166,22 @@ jobs:
 
 ---
 
-## Step 3: Create Deployment Workflow
+## Step 3: Deployment
 
-### Option A: AWS S3 + CloudFront (Recommended)
+### Option A: AWS Amplify (Recommended)
 
-Create `.github/workflows/deploy-aws.yml`:
+AWS Amplify handles deployment automatically - no GitHub Actions workflow needed for deployment.
 
-```yaml
-name: Deploy to AWS S3 + CloudFront
+1. Go to [AWS Amplify Console](https://console.aws.amazon.com/amplify/)
+2. Click **Create new app** → **Host web app**
+3. Connect your GitHub repository
+4. Select the `main` branch
+5. Amplify auto-detects Astro and configures the build
+6. Click **Save and deploy**
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+Every push to `main` automatically triggers a new build and deployment.
 
-env:
-  AWS_REGION: us-east-1
-
-jobs:
-  deploy:
-    name: Build and Deploy
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build site
-        run: npm run build
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: Deploy to S3
-        run: |
-          aws s3 sync dist/ s3://${{ secrets.S3_BUCKET_NAME }} \
-            --delete \
-            --cache-control "public, max-age=31536000, immutable" \
-            --exclude "*.html" \
-            --exclude "sitemap.xml" \
-            --exclude "robots.txt"
-
-          # HTML and dynamic files with shorter cache
-          aws s3 sync dist/ s3://${{ secrets.S3_BUCKET_NAME }} \
-            --delete \
-            --cache-control "public, max-age=0, must-revalidate" \
-            --exclude "*" \
-            --include "*.html" \
-            --include "sitemap.xml" \
-            --include "robots.txt"
-
-      - name: Invalidate CloudFront cache
-        run: |
-          aws cloudfront create-invalidation \
-            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
-            --paths "/*"
-```
-
-#### AWS Infrastructure Setup
-
-Before the workflow can run, you need to set up:
-
-1. **S3 Bucket** for hosting static files
-2. **CloudFront Distribution** for CDN and HTTPS
-3. **IAM User** with deployment permissions
-
-See the AWS setup guide below for detailed instructions.
+See `docs/AMPLIFY-SETUP.md` for detailed setup instructions.
 
 ### Option B: Netlify
 
@@ -386,14 +323,9 @@ jobs:
 
 Navigate to: Repository → Settings → Secrets and variables → Actions
 
-#### For AWS S3 + CloudFront
+#### For AWS Amplify
 
-| Secret                       | How to obtain                                            |
-| ---------------------------- | -------------------------------------------------------- |
-| `AWS_ACCESS_KEY_ID`          | IAM → Users → Security credentials → Create access key   |
-| `AWS_SECRET_ACCESS_KEY`      | Generated with access key (save immediately, shown once) |
-| `S3_BUCKET_NAME`             | Your S3 bucket name (e.g., `omnir3-website`)             |
-| `CLOUDFRONT_DISTRIBUTION_ID` | CloudFront → Distribution → ID column                    |
+No GitHub secrets needed - Amplify connects directly to your repository and handles builds internally.
 
 #### For Netlify
 

@@ -13,9 +13,9 @@ import MainLayout from '../../layouts/MainLayout.astro';
         <p class="eyebrow">Insights · August 18, 2026</p>
         <h1>Internal apps should be private by default</h1>
         <p class="lead">
-          Cloudflare can now attach Access to a Worker itself — not just to
-          each hostname — so internal software stays behind company login even
-          when someone adds a new domain or ships a preview.
+          Cloudflare can now attach Access to a Worker itself — not just to each
+          hostname — so internal software stays behind company login even when
+          someone adds a new domain or ships a preview.
         </p>
       </div>
     </section>
@@ -65,16 +65,15 @@ import MainLayout from '../../layouts/MainLayout.astro';
         <p>
           When Access is protecting the Worker, identity is available on the
           request context. Teams can read email, name, and groups with
-          <code>ctx.access.getIdentity()</code> instead of parsing and verifying
-          a JWT themselves. That is less glue code, and fewer places to get
-          signature validation wrong. Local development can simulate an
-          authenticated user in Wrangler so permission checks can be tested
-          before a deploy.
+          <code>ctx.access.getIdentity()</code> instead of parsing and verifying a
+          JWT themselves. That is less glue code, and fewer places to get signature
+          validation wrong. Local development can simulate an authenticated user in
+          Wrangler so permission checks can be tested before a deploy.
         </p>
         <p>
-          For internal platforms, the same idea scales. Put Access on a
-          Workers for Platforms dispatch Worker and every app deployed through
-          that namespace inherits the gate. That is the model we want for
+          For internal platforms, the same idea scales. Put Access on a Workers
+          for Platforms dispatch Worker and every app deployed through that
+          namespace inherits the gate. That is the model we want for
           employee-built tools: private by default, not private if someone
           remembered to click the right checkbox.
         </p>

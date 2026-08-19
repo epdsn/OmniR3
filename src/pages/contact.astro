@@ -1,5 +1,5 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro";
+import MainLayout from '../layouts/MainLayout.astro';
 ---
 
 <MainLayout
@@ -11,13 +11,21 @@ import MainLayout from "../layouts/MainLayout.astro";
     <div class="container">
       <p class="eyebrow">Contact</p>
       <h1>Let us talk about your next software initiative.</h1>
-      <p class="lead">Share your goals, context, and timeline. We respond to all inquiries within one business day.</p>
+      <p class="lead">
+        Share your goals, context, and timeline. We respond to all inquiries
+        within one business day.
+      </p>
     </div>
   </section>
 
   <section class="section section-alt">
     <div class="container split">
-      <form class="card form-card" name="contact" method="post" data-netlify="true">
+      <form
+        class="card form-card"
+        name="contact"
+        method="post"
+        data-netlify="true"
+      >
         <input type="hidden" name="form-name" value="contact" />
         <label>
           Name
@@ -35,7 +43,9 @@ import MainLayout from "../layouts/MainLayout.astro";
           Project focus
           <select name="projectType">
             <option value="">Select</option>
-            <option value="custom-development">Custom Software Development</option>
+            <option value="custom-development"
+              >Custom Software Development</option
+            >
             <option value="cloud-infrastructure">Cloud Infrastructure</option>
             <option value="system-integration">System Integration</option>
             <option value="modernization">Legacy Modernization</option>

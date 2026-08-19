@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap');
 
 :root {
   --bg: #f4f1ea;
@@ -25,7 +25,7 @@ body {
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
   line-height: 1.5;
 }
 
@@ -34,8 +34,16 @@ body {
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(900px 500px at 95% -15%, rgba(154, 128, 93, 0.14), transparent 60%),
-    radial-gradient(800px 400px at -10% 30%, rgba(90, 83, 74, 0.12), transparent 60%),
+    radial-gradient(
+      900px 500px at 95% -15%,
+      rgba(154, 128, 93, 0.14),
+      transparent 60%
+    ),
+    radial-gradient(
+      800px 400px at -10% 30%,
+      rgba(90, 83, 74, 0.12),
+      transparent 60%
+    ),
     linear-gradient(180deg, #f8f4ec 0%, #f1ece2 100%);
 }
 
@@ -54,7 +62,7 @@ h4 {
 
 h1,
 h2 {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: 'Fraunces', Georgia, serif;
   letter-spacing: -0.02em;
 }
 
@@ -149,6 +157,75 @@ a {
   max-width: 68ch;
 }
 
+.text-link {
+  display: inline-flex;
+  font-weight: 700;
+  color: var(--accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.text-link:hover {
+  border-bottom-color: var(--accent);
+}
+
+.article-head {
+  max-width: 760px;
+}
+
+.insight-card h2 {
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+}
+
+.insight-card h2 a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.prose {
+  max-width: 72ch;
+}
+
+.prose h2 {
+  margin-top: 2rem;
+  font-size: clamp(1.45rem, 2.2vw, 1.9rem);
+}
+
+.prose a {
+  color: var(--accent);
+  font-weight: 700;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.prose a:hover {
+  border-bottom-color: var(--accent);
+}
+
+.prose ul {
+  margin: 0 0 1.15rem;
+  padding-left: 1.2rem;
+  color: var(--muted);
+}
+
+.prose li {
+  margin-bottom: 0.45rem;
+}
+
+.prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  background: color-mix(in srgb, var(--surface-strong) 88%, #e8dfd2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.08rem 0.35rem;
+}
+
+.source-note {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.94rem;
+}
+
 .actions {
   display: flex;
   gap: 0.75rem;
@@ -164,7 +241,10 @@ a {
   padding: 0.8rem 1.25rem;
   font-weight: 700;
   border: 1px solid transparent;
-  transition: transform 0.18s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .btn:hover {

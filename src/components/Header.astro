@@ -6,11 +6,12 @@ interface Props {
 const { currentPath } = Astro.props;
 
 const links = [
-  { href: "/", label: "Home" },
-  { href: "/capabilities", label: "Capabilities" },
-  { href: "/how-we-work", label: "How We Work" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: '/', label: 'Home' },
+  { href: '/capabilities', label: 'Capabilities' },
+  { href: '/how-we-work', label: 'How We Work' },
+  { href: '/insights', label: 'Insights' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
 ];
 ---
 
@@ -21,7 +22,10 @@ const links = [
       {
         links.map((item) => (
           <li>
-            <a class={currentPath === item.href ? "active" : ""} href={item.href}>
+            <a
+              class={currentPath === item.href ? 'active' : ''}
+              href={item.href}
+            >
               {item.label}
             </a>
           </li>

@@ -1,0 +1,49 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+
+const posts = [
+  {
+    href: '/insights/workers-protected-by-access',
+    date: 'August 18, 2026',
+    title: 'Internal apps should be private by default',
+    summary:
+      'Cloudflare can now attach Access to a Worker itself — covering custom domains, routes, workers.dev, and previews — so internal software stays behind company login without hoping every developer remembers.',
+  },
+];
+---
+
+<MainLayout
+  title="Insights - OmniR3"
+  description="Field notes on secure-by-default software, delivery, and platform engineering."
+  currentPath="/insights"
+>
+  <section class="section page-head">
+    <div class="container">
+      <p class="eyebrow">Insights</p>
+      <h1>What we are watching in software delivery and security.</h1>
+      <p class="lead">
+        Short notes on platform changes that affect how teams ship internal
+        tools, protect data, and keep delivery repeatable.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container cards">
+      {
+        posts.map((post) => (
+          <article class="card insight-card">
+            <p class="eyebrow">{post.date}</p>
+            <h2>
+              <a href={post.href}>{post.title}</a>
+            </h2>
+            <p>{post.summary}</p>
+            <a class="text-link" href={post.href}>
+              Read the note
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</MainLayout>

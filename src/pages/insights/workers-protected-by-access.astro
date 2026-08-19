@@ -1,0 +1,132 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+---
+
+<MainLayout
+  title="Internal apps should be private by default - OmniR3"
+  description="Cloudflare Access can now protect a Worker on every hostname it uses, including previews. Here is why that matters for internal software."
+  currentPath="/insights"
+>
+  <article>
+    <section class="section page-head">
+      <div class="container article-head">
+        <p class="eyebrow">Insights · August 18, 2026</p>
+        <h1>Internal apps should be private by default</h1>
+        <p class="lead">
+          Cloudflare can now attach Access to a Worker itself — not just to each
+          hostname — so internal software stays behind company login even when
+          someone adds a new domain or ships a preview.
+        </p>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container prose">
+        <p>
+          AI-assisted development has made it easy for almost anyone to stand up
+          an internal tool and put it on the public internet. That speed is
+          useful. It is also the gap that keeps security teams awake: a
+          prototype that was never meant to be public, sitting on a preview URL
+          or a forgotten custom domain, with company data behind it.
+        </p>
+        <p>
+          Cloudflare’s answer, announced in
+          <a
+            href="https://blog.cloudflare.com/workers-protected-by-access/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Access for Workers</a
+          >, is to bind the access policy to the application rather than to the
+          DNS name. Authentication runs before Worker code. If Access is on, the
+          request does not reach the app until the user has signed in — whether
+          they arrived through a custom domain, a route, a workers.dev
+          subdomain, or a preview URL.
+        </p>
+
+        <h2>Why hostname policies were not enough</h2>
+        <p>
+          Previously, Access had to be configured per hostname. Add a new custom
+          domain to a Worker and you also had to update the Access application,
+          or that hostname was reachable without a login. That is a classic
+          secure-by-hope failure: the default is open unless someone remembers
+          the extra step.
+        </p>
+        <p>
+          Attaching the policy to the Worker closes that gap. You can protect
+          preview URLs only, which is the right default when production is
+          intentionally public, or protect every hostname associated with the
+          Worker. Account-level policy can apply the same rule to every current
+          and future Worker, with an explicit bypass when a service needs to be
+          public.
+        </p>
+
+        <h2>Identity without a homemade JWT check</h2>
+        <p>
+          When Access is protecting the Worker, identity is available on the
+          request context. Teams can read email, name, and groups with
+          <code>ctx.access.getIdentity()</code> instead of parsing and verifying a
+          JWT themselves. That is less glue code, and fewer places to get signature
+          validation wrong. Local development can simulate an authenticated user in
+          Wrangler so permission checks can be tested before a deploy.
+        </p>
+        <p>
+          For internal platforms, the same idea scales. Put Access on a Workers
+          for Platforms dispatch Worker and every app deployed through that
+          namespace inherits the gate. That is the model we want for
+          employee-built tools: private by default, not private if someone
+          remembered to click the right checkbox.
+        </p>
+
+        <h2>What we recommend</h2>
+        <ul>
+          <li>
+            Make preview deployments private even when production is public.
+            Drafts should never be the leak.
+          </li>
+          <li>
+            Prefer account-wide or platform-wide defaults over per-app setup
+            when many people can deploy.
+          </li>
+          <li>
+            Treat public access as an explicit exception, not the starting
+            state.
+          </li>
+          <li>
+            Use the identity already established at the edge to personalize,
+            authorize, and audit — do not rebuild that trust inside the app.
+          </li>
+        </ul>
+        <p>
+          This is the same standard we apply in delivery: reliable systems are
+          not only well tested, they fail closed. If your organization is
+          shipping internal tools on Workers — or standing up a platform so
+          other teams can — Access on the Worker is now the straightforward way
+          to keep those apps behind company identity.
+        </p>
+
+        <p class="source-note">
+          Source:{' '}
+          <a
+            href="https://blog.cloudflare.com/workers-protected-by-access/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Cloudflare — Secure all your internal vibe-coded applications, in
+            one click
+          </a>
+        </p>
+        <p>
+          <a class="text-link" href="/insights">Back to Insights</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="container">
+        <h2>Need internal software that is private by default?</h2>
+        <a class="btn btn-primary" href="/contact">Talk with OmniR3</a>
+      </div>
+    </section>
+  </article>
+</MainLayout>
